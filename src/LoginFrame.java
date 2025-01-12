@@ -4,3 +4,4 @@ public class LoginFrame {
 
         System.out.println("Hello");
     }
+}
