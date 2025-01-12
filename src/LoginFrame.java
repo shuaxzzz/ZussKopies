@@ -1,5 +1,6 @@
 public class LoginFrame {
-    public static void main(String[] args){
+    public static void main(String[] args) {
         System.out.println("Coffee shop");
+
+        System.out.println("Hello");
     }
-}
