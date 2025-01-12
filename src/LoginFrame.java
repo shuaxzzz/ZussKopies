@@ -3,5 +3,7 @@ public class LoginFrame {
         System.out.println("Coffee shop");
 
         System.out.println("Hello");
+
+        System.out.println("Welcome to Zuss Coffee");
     }
 }
