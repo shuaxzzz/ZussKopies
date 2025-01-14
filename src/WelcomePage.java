@@ -1,73 +1,95 @@
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class WelcomePage {
+public class WelcomePage extends JFrame implements ActionListener {
+
+    private JLabel lblUsername, lblPassword;
+    private JTextField txtUsername;
+    private JPasswordField txtPassword;
+    private JButton btnLogin, btnNotMember;
+    private Container cp; // content pane
+
+    public WelcomePage() {
+        super.setTitle("Zuss Coffee - Welcome");
+        super.setSize(350, 200);
+        cp = super.getContentPane();
+
+        prepareCenterPanel();
+        prepareSouthPanel();
+
+        super.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        super.setVisible(true);
+    }
+
+    private void prepareSouthPanel() {
+        btnLogin = new JButton("Login");
+        btnNotMember = new JButton("Not a Member");
+
+        btnLogin.addActionListener(this);
+        btnNotMember.addActionListener(this);
+
+        // create a JPanel using GridLayout, 1x2
+        JPanel pnlSouth = new JPanel();
+        pnlSouth.setLayout(new GridLayout(1, 2, 10, 0));
+
+        // add elements to pnlSouth
+        pnlSouth.add(btnLogin);
+        pnlSouth.add(btnNotMember);
+
+        // add pnlSouth to Content Pane
+        pnlSouth.setBorder(new EmptyBorder(10, 10, 10, 10));
+        cp.add(pnlSouth, BorderLayout.SOUTH);
+    }
+
+    private void prepareCenterPanel() {
+        lblUsername = new JLabel("Username:");
+        lblPassword = new JLabel("Password:");
+        txtUsername = new JTextField();
+        txtPassword = new JPasswordField();
+
+        // create a JPanel with GridLayout
+        JPanel pnlCenter = new JPanel();
+        pnlCenter.setLayout(new GridLayout(2, 2, 10, 10));
+
+        // add elements to pnlCenter
+        pnlCenter.add(lblUsername);
+        pnlCenter.add(txtUsername);
+        pnlCenter.add(lblPassword);
+        pnlCenter.add(txtPassword);
+
+        // add pnlCenter to Content Pane
+        pnlCenter.setBorder(new EmptyBorder(10, 10, 10, 10));
+        cp.add(pnlCenter, BorderLayout.CENTER);
+    }
 
     public static void main(String[] args) {
+        new WelcomePage();
+    }
 
-        JFrame frame = new JFrame("Zuss Coffee - Welcome");
-        frame.setSize(400, 300);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLayout(new BorderLayout());
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == btnLogin) {
+            // verify username and password
+            String username = txtUsername.getText();
+            char[] passwordArr = txtPassword.getPassword();
+            String password = String.valueOf(passwordArr);
 
-        JPanel welcomePanel = new JPanel();
-        welcomePanel.setLayout(new FlowLayout());
-        JLabel welcomeLabel = new JLabel("Welcome to Zuss Coffee!");
-        welcomeLabel.setFont(new Font("Arial", Font.BOLD, 18));
-        welcomePanel.add(welcomeLabel);
+            if (username.equals("admin") && password.equals("secret")) {
+                JOptionPane.showMessageDialog(this, "Login Success! Welcome to Zuss Coffee.");
 
-        JPanel loginPanel = new JPanel();
-        loginPanel.setLayout(new GridLayout(3, 2, 10, 10));
-
-        JLabel usernameLabel = new JLabel("Username:");
-        JTextField usernameField = new JTextField();
-
-        JLabel passwordLabel = new JLabel("Password:");
-        JPasswordField passwordField = new JPasswordField();
-
-        JButton loginButton = new JButton("Login");
-
-        loginPanel.add(usernameLabel);
-        loginPanel.add(usernameField);
-        loginPanel.add(passwordLabel);
-        loginPanel.add(passwordField);
-        loginPanel.add(new JLabel());  // Placeholder
-        loginPanel.add(loginButton);
-
-        JPanel membershipPanel = new JPanel();
-        membershipPanel.setLayout(new FlowLayout());
-
-        JButton notMembershipButton = new JButton("Not a Member?");
-        membershipPanel.add(notMembershipButton);
-
-        loginButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String username = usernameField.getText();
-                String password = new String(passwordField.getPassword());
-
-                // Placeholder for authentication logic
-                if (username.equals("admin") && password.equals("admin")) {
-                    JOptionPane.showMessageDialog(frame, "Login Successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
-                } else {
-                    JOptionPane.showMessageDialog(frame, "Invalid Username or Password", "Error", JOptionPane.ERROR_MESSAGE);
-                }
+                super.setVisible(false);
+                // Proceed to the main order frame or other actions
+                // Example: OrderFrame of = new OrderFrame(username);
+            } else {
+                JOptionPane.showMessageDialog(this, "Invalid username/password", "Error", JOptionPane.ERROR_MESSAGE);
             }
-        });
-
-        notMembershipButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(frame, "Please visit the counter to register for membership.", "Membership", JOptionPane.INFORMATION_MESSAGE);
-            }
-        });
-
-        frame.add(welcomePanel, BorderLayout.NORTH);
-        frame.add(loginPanel, BorderLayout.CENTER);
-        frame.add(membershipPanel, BorderLayout.SOUTH);
-
-        frame.setVisible(true);
+        } else if (e.getSource() == btnNotMember) {
+            JOptionPane.showMessageDialog(this, "Welcome! Please sign up for a membership or explore as a guest.");
+            // Add additional logic for non-membership users if needed
+            // Example: new GuestWelcomeFrame();
+        }
     }
 }
