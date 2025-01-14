@@ -13,7 +13,7 @@ public class WelcomePage extends JFrame implements ActionListener {
     private Container cp; //
 
     public WelcomePage () {
-        super.setTitle("Zus Coffee - Welcome");
+        super.setTitle("Zus Coffee App - Welcome");
         super.setSize(350, 400);
         cp = super.getContentPane();
 
@@ -30,8 +30,10 @@ public class WelcomePage extends JFrame implements ActionListener {
         lblWelcome.setFont(new Font("Arial", Font.BOLD, 16));
         lblWelcome.setBorder(new EmptyBorder(10, 10, 10, 10));
 
+        ImageIcon coffeeIcon = new ImageIcon("zuscoffee.png");
+        Image scaledImage = coffeeIcon.getImage().getScaledInstance(200, 150, Image.SCALE_SMOOTH);
+        coffeeIcon = new ImageIcon(scaledImage);
 
-        ImageIcon coffeeIcon = new ImageIcon("zuscoffee.png"); // Update with actual path
         lblImage = new JLabel(coffeeIcon);
         lblImage.setHorizontalAlignment(SwingConstants.CENTER);
 
