@@ -6,15 +6,15 @@ import java.awt.event.ActionListener;
 
 public class WelcomePage extends JFrame implements ActionListener {
 
-    private JLabel lblWelcome, lblUsername, lblPassword;
+    private JLabel lblWelcome, lblUsername, lblPassword, lblImage;
     private JTextField txtUsername;
     private JPasswordField txtPassword;
     private JButton btnLogin, btnNotMember;
-    private Container cp; // content pane
+    private Container cp; //
 
-    public WelcomePage() {
-        super.setTitle("Zuss Coffee - Welcome");
-        super.setSize(350, 250);
+    public WelcomePage () {
+        super.setTitle("Zus Coffee - Welcome");
+        super.setSize(350, 400);
         cp = super.getContentPane();
 
         prepareNorthPanel();
@@ -30,12 +30,23 @@ public class WelcomePage extends JFrame implements ActionListener {
         lblWelcome.setFont(new Font("Arial", Font.BOLD, 16));
         lblWelcome.setBorder(new EmptyBorder(10, 10, 10, 10));
 
-        cp.add(lblWelcome, BorderLayout.NORTH);
+
+        ImageIcon coffeeIcon = new ImageIcon("zuscoffee.png"); // Update with actual path
+        lblImage = new JLabel(coffeeIcon);
+        lblImage.setHorizontalAlignment(SwingConstants.CENTER);
+
+
+        JPanel pnlNorth = new JPanel();
+        pnlNorth.setLayout(new BorderLayout());
+        pnlNorth.add(lblWelcome, BorderLayout.NORTH);
+        pnlNorth.add(lblImage, BorderLayout.CENTER);
+
+        cp.add(pnlNorth, BorderLayout.NORTH);
     }
 
     private void prepareSouthPanel() {
         btnLogin = new JButton("Login");
-        btnNotMember = new JButton("Not a Member");
+        btnNotMember = new JButton("Not a Member?");
 
         btnLogin.addActionListener(this);
         btnNotMember.addActionListener(this);
@@ -56,20 +67,23 @@ public class WelcomePage extends JFrame implements ActionListener {
         txtUsername = new JTextField();
         txtPassword = new JPasswordField();
 
+
         JPanel pnlCenter = new JPanel();
         pnlCenter.setLayout(new GridLayout(2, 2, 10, 10));
+
 
         pnlCenter.add(lblUsername);
         pnlCenter.add(txtUsername);
         pnlCenter.add(lblPassword);
         pnlCenter.add(txtPassword);
 
+
         pnlCenter.setBorder(new EmptyBorder(10, 10, 10, 10));
         cp.add(pnlCenter, BorderLayout.CENTER);
     }
 
     public static void main(String[] args) {
-        new WelcomePage();
+        new WelcomePage ();
     }
 
     @Override
