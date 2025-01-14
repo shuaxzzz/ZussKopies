@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 
 public class WelcomePage extends JFrame implements ActionListener {
 
-    private JLabel lblUsername, lblPassword;
+    private JLabel lblWelcome, lblUsername, lblPassword;
     private JTextField txtUsername;
     private JPasswordField txtPassword;
     private JButton btnLogin, btnNotMember;
@@ -14,14 +14,23 @@ public class WelcomePage extends JFrame implements ActionListener {
 
     public WelcomePage() {
         super.setTitle("Zuss Coffee - Welcome");
-        super.setSize(350, 200);
+        super.setSize(350, 250);
         cp = super.getContentPane();
 
+        prepareNorthPanel();
         prepareCenterPanel();
         prepareSouthPanel();
 
         super.setDefaultCloseOperation(EXIT_ON_CLOSE);
         super.setVisible(true);
+    }
+
+    private void prepareNorthPanel() {
+        lblWelcome = new JLabel("Welcome to our Zuss Coffee!", SwingConstants.CENTER);
+        lblWelcome.setFont(new Font("Arial", Font.BOLD, 16));
+        lblWelcome.setBorder(new EmptyBorder(10, 10, 10, 10));
+
+        cp.add(lblWelcome, BorderLayout.NORTH);
     }
 
     private void prepareSouthPanel() {
