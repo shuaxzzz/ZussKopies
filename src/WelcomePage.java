@@ -96,7 +96,7 @@ public class WelcomePage extends JFrame implements ActionListener {
             char[] passwordArr = txtPassword.getPassword();
             String password = String.valueOf(passwordArr);
 
-            if (username.equals("admin") && password.equals("secret")) {
+            if (username.equals("admin") && password.equals("admin")) {
                 JOptionPane.showMessageDialog(this, "Login Success! Welcome to Zuss Coffee.");
 
                 super.setVisible(false);
