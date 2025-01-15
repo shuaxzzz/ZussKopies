@@ -11,25 +11,39 @@ public class Coffee extends JFrame implements ActionListener
     private JLabel img1, img2, img3, img4, img5;
     private Container contain;
 
+
     public Coffee()
     {
         //yang ni boleh declare super, x perlu pon x pe
-        setTitle("THE WARM CUP BY ZUSS KOPIES <3"); //Tajuk besar
-        setSize(400,400); //size kotak
-        setLocation(500,200); //jarak dari hujung screen;
+        JLabel title = new JLabel("THE WARM CUP BY ZUSS KOPIES <3", SwingConstants.CENTER);
+        title.setFont(new Font("Times New Roman", Font.BOLD, 20));//Tajuk besar
+        setSize(800,500); //size kotak
+        setLocation(300,100); //jarak dari hujung screen;
         setDefaultCloseOperation(EXIT_ON_CLOSE); //supaya tekan pangkah, terus tutup
+
+        north();
 
 
         contain = getContentPane(); //declare dari class J yang tersedia, untuk isi apa ii dalam pane
         contain.setBackground(new Color(173,216,230)); // tukar background color
         contain.setLayout(new FlowLayout());
 
-        JLabel mainText = new JLabel("THE WARM CUP BY ZUSS KOPIES <3");
-        contain.add(mainText);
+        contain.add(title);
     }
 
     private void north()
     {
+        JButton btnc1 = new JButton("Americano");
+        JButton btnc2 = new JButton("Americano");
+        JButton btnc3 = new JButton("Americano");
+        JButton btnc4 = new JButton("Americano");
+        JButton btnc5 = new JButton("Americano");
+
+        JPanel pnlnorth = new JPanel();
+        pnlnorth.setLayout(new GridLayout(1, 2, 10, 0));
+
+        pnlnorth.setBorder(new EmptyBorder(10, 10, 10, 10));
+        contain.add(pnlnorth, BorderLayout.SOUTH);
 
     }
     private void centre()

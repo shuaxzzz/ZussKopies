@@ -1,6 +1,6 @@
 
 
-public class CoffeeType
+public abstract class CoffeeType
 {
     private String coffee;
     private double price;
@@ -48,9 +48,6 @@ public class CoffeeType
         return quantity;
     }
 
-    public double caclTotal()
-    {
-        return 0;
-    }
+    public abstract double calcTotal();
 }
 

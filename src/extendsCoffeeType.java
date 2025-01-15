@@ -59,21 +59,24 @@ public class extendsCoffeeType extends CoffeeType
     }
 
     //calculation
-    public double sugarprice()
+    public double calcTotal()
     {
-        double price = 0;
-        if(sugar == "no")
-        {
-            price = 0;
-        }
-        else if(sugar == "less")
-        {
-            price = 0.5;
-        }
-        else if(sugar == "normal")
-        {
-            price = 1;
-        }
-        return price;
+        double totalprice = 0;
+        if(super.getCoffee() == "Americano")
+           totalprice = super.getPrice()*super.getQuantity();
+        else if(super.getCoffee() == "Cappucino")
+            totalprice = super.getPrice()*super.getQuantity();
+        else if(super.getCoffee() == "VanillaLatte")
+            totalprice = super.getPrice()*super.getQuantity();
+        else if(super.getCoffee() == "Mocha")
+            totalprice = super.getPrice()*super.getQuantity();
+        else if(super.getCoffee() == "CaramelLatte")
+            totalprice = super.getPrice()*super.getQuantity();
+
+        if(cream == "yes")
+            totalprice += + 2*super.getQuantity();
+
+        return totalprice;
     }
+
 }
