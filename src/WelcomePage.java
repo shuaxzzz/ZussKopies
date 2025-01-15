@@ -23,16 +23,21 @@ public class WelcomePage extends JFrame implements ActionListener {
 
         super.setDefaultCloseOperation(EXIT_ON_CLOSE);
         super.setVisible(true);
+
     }
 
     private void prepareNorthPanel() {
-        lblWelcome = new JLabel("Welcome to our Zuss Coffee!", SwingConstants.CENTER);
-        lblWelcome.setFont(new Font("Arial", Font.BOLD, 16));
+        lblWelcome = new JLabel("˚ʚ Welcome to Zuss Kopiess ɞ˚ ", SwingConstants.CENTER);
+        lblWelcome.setFont(new Font("Arial", Font.BOLD, 20));
         lblWelcome.setBorder(new EmptyBorder(10, 10, 10, 10));
+        lblWelcome.setForeground(Color.black);
 
-        ImageIcon coffeeIcon = new ImageIcon("zuscoffee.png");
-        Image scaledImage = coffeeIcon.getImage().getScaledInstance(200, 150, Image.SCALE_SMOOTH);
+
+        ImageIcon coffeeIcon = new ImageIcon(getClass().getResource("/download.png"));
+        Image scaledImage = coffeeIcon.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
         coffeeIcon = new ImageIcon(scaledImage);
+
+
 
         lblImage = new JLabel(coffeeIcon);
         lblImage.setHorizontalAlignment(SwingConstants.CENTER);
@@ -40,8 +45,10 @@ public class WelcomePage extends JFrame implements ActionListener {
 
         JPanel pnlNorth = new JPanel();
         pnlNorth.setLayout(new BorderLayout());
+
         pnlNorth.add(lblWelcome, BorderLayout.NORTH);
         pnlNorth.add(lblImage, BorderLayout.CENTER);
+
 
         cp.add(pnlNorth, BorderLayout.NORTH);
     }
@@ -52,6 +59,10 @@ public class WelcomePage extends JFrame implements ActionListener {
 
         btnLogin.addActionListener(this);
         btnNotMember.addActionListener(this);
+        btnLogin.setBackground(new Color(34,139,34));
+        btnLogin.setForeground(Color.WHITE);
+        btnNotMember.setBackground(new Color(255,69,0));
+        btnNotMember.setForeground(Color.WHITE);
 
         JPanel pnlSouth = new JPanel();
         pnlSouth.setLayout(new GridLayout(1, 2, 10, 0));
@@ -64,14 +75,27 @@ public class WelcomePage extends JFrame implements ActionListener {
     }
 
     private void prepareCenterPanel() {
+
         lblUsername = new JLabel("Username:");
         lblPassword = new JLabel("Password:");
+
+        //custom font and size
+        Font labelFont=new Font("Arial",Font.BOLD,16);
+        lblUsername.setFont(labelFont);
+        lblPassword.setFont(labelFont);
+
         txtUsername = new JTextField();
         txtPassword = new JPasswordField();
 
-
+        txtUsername.setBackground(Color.lightGray);
+        txtPassword.setBackground(Color.LIGHT_GRAY);
         JPanel pnlCenter = new JPanel();
         pnlCenter.setLayout(new GridLayout(2, 2, 10, 10));
+
+        //custom font for username and password
+        Font customFont=new Font("Tahoma",Font.PLAIN,16);
+        txtPassword.setFont(customFont);
+        txtUsername.setFont(customFont);
 
 
         pnlCenter.add(lblUsername);
@@ -82,6 +106,7 @@ public class WelcomePage extends JFrame implements ActionListener {
 
         pnlCenter.setBorder(new EmptyBorder(10, 10, 10, 10));
         cp.add(pnlCenter, BorderLayout.CENTER);
+
     }
 
     public static void main(String[] args) {
