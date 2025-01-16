@@ -118,6 +118,7 @@ public class WelcomePage extends JFrame implements ActionListener {
 
     public static void main(String[] args) {
         new WelcomePage ();
+
     }
 
 
@@ -133,6 +134,9 @@ public class WelcomePage extends JFrame implements ActionListener {
             // Check for admin login
             if (username.equals("admin") && password.equals("admin")) {
                 JOptionPane.showMessageDialog(this, "Login Success! Welcome to Zuss Kopiess :)");
+                Coffee cof = new Coffee();
+                cof.setVisible(true);
+                ((JFrame) SwingUtilities.getWindowAncestor((JComponent) e.getSource())).dispose(); //bila settle, terus tutup
                 return; // Exit after successful login
             }
 
@@ -141,6 +145,9 @@ public class WelcomePage extends JFrame implements ActionListener {
                 if (customer.getUsername().equals(username) && customer.getPassword().equals(password)) {
                     JOptionPane.showMessageDialog(this, "Welcome back, " + username + ":) !");
                     userFound = true;
+                    Coffee cof = new Coffee();
+                    cof.setVisible(true);
+                    ((JFrame) SwingUtilities.getWindowAncestor((JComponent) e.getSource())).dispose(); //auto tutup bila tekan ok
                     break;
                 }
             }
