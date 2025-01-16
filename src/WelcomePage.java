@@ -3,6 +3,8 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
 
 public class WelcomePage extends JFrame implements ActionListener {
 
@@ -10,12 +12,17 @@ public class WelcomePage extends JFrame implements ActionListener {
     private JTextField txtUsername;
     private JPasswordField txtPassword;
     private JButton btnLogin, btnNotMember;
-    private Container cp; //
+    private Container cp;
+    private java.util.ArrayList<Customers> customers;
 
     public WelcomePage () {
-        super.setTitle("Zus Coffee App - Welcome");
+        super.setTitle("Zuss Kopiess App - Welcome");
         super.setSize(350, 400);
         cp = super.getContentPane();
+
+        customers=new ArrayList<>();
+        customers.add(new Customers("user1","password1"));
+        customers.add(new Customers("admin","admin"));
 
         prepareNorthPanel();
         prepareCenterPanel();
@@ -113,25 +120,66 @@ public class WelcomePage extends JFrame implements ActionListener {
         new WelcomePage ();
     }
 
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnLogin) {
-
             String username = txtUsername.getText();
             char[] passwordArr = txtPassword.getPassword();
             String password = String.valueOf(passwordArr);
 
+            boolean userFound = false;
+
+            // Check for admin login
             if (username.equals("admin") && password.equals("admin")) {
-                JOptionPane.showMessageDialog(this, "Login Success! Welcome to Zuss Coffee.");
+                JOptionPane.showMessageDialog(this, "Login Success! Welcome to Zuss Kopiess :)");
+                return; // Exit after successful login
+            }
 
-                super.setVisible(false);
+            // Check for regular user login
+            for (Customers customer : customers) {
+                if (customer.getUsername().equals(username) && customer.getPassword().equals(password)) {
+                    JOptionPane.showMessageDialog(this, "Welcome back, " + username + ":) !");
+                    userFound = true;
+                    break;
+                }
+            }
 
-            } else {
+            if (!userFound) {
                 JOptionPane.showMessageDialog(this, "Invalid username/password", "Error", JOptionPane.ERROR_MESSAGE);
             }
-        } else if (e.getSource() == btnNotMember) {
-            JOptionPane.showMessageDialog(this, "Welcome! Please sign up for a membership or explore as a guest.");
 
+        } else if (e.getSource() == btnNotMember) {
+            //sing-up not member
+            String newUsername = JOptionPane.showInputDialog(null, "Enter a username:");
+            if (newUsername == null || newUsername.isEmpty())
+            {
+                JOptionPane.showMessageDialog(this, "Username cannot be empty");
+                return;
+            }
+
+            //check if duplicate
+            for (Customers customer : customers) {
+                if (customer.getUsername().equals(newUsername)) {
+                    JOptionPane.showMessageDialog(this, "Username already exixts.Please choose a different one.");
+                    return;
+                }
+            }
+
+            String newPassword = JOptionPane.showInputDialog(null, "Enter a password:");
+
+            if (newPassword == null || newPassword.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Password cannot be empty.");
+                return;
+            }
+
+            //add new cust
+            customers.add(new Customers(newUsername, newPassword));
+            JOptionPane.showMessageDialog(this, "Sign-up successful! You can log in now.");
         }
     }
-}
+
+
+    }
+
+
