@@ -13,12 +13,12 @@ public class CoffeeType
     //default constructor
     public CoffeeType()
     {
-        coffee = "";
+        coffee = "None";
         quantity = 0;
-        cold = "";
-        typecoffee = "";
-        cream = "";
-        sugar = "";
+        cold = "None";
+        typecoffee = "None";
+        cream = "None";
+        sugar = "None";
     }
     //normal constructor
     public CoffeeType(String coffee, int quantity, String cold, String typecoffee, String cream, String sugar)

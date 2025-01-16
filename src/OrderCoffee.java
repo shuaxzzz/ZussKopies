@@ -3,18 +3,24 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class OrderCoffee extends JFrame implements ActionListener
 {
-    private JLabel label1,label2,label3,label4,tittle;
+    private JLabel label1,label2,label3,label4,label6,tittle;
     private JCheckBox cold;
     private JComboBox sugar1;
     private JRadioButton whipped1, whipped2;
     private JRadioButton coffee1, coffee2;
+    private JTextField quantity;
     private Container contain;
+    private java.util.ArrayList<CoffeeType> coffeetypes;
+    private CoffeeType kopi; // Declare the CoffeeType object
 
-    public OrderCoffee()
+
+    public OrderCoffee(CoffeeType kopi)
     {
+        this.kopi = kopi;
         tittle = new JLabel("**=======<3=======**");
         tittle.setFont(new Font("Times New Roman", Font.BOLD, 30));
 
@@ -26,14 +32,42 @@ public class OrderCoffee extends JFrame implements ActionListener
         contain.setBackground(new Color(173,200,220)); // tukar background color
         contain.setLayout(new FlowLayout());
 
+        coffeetypes=new ArrayList<>();
+
         contain.add(tittle, BorderLayout.NORTH);
 
+        //pilihankopi();
         sejuk();
         sugarlevel();
         whippedcream();
         CoffeeTypee();
+        quant();
 
     }
+    /*private void pilihankopi()
+    {
+        // Label for sugar level
+        label5 = new JLabel("CHOOSE YOUR COFFEE");
+        label5.setFont(new Font("Times New Roman", Font.BOLD, 20));
+
+        // Panel with GridLayout for layout
+        JPanel panel5 = new JPanel();
+        panel5.setLayout(new GridLayout(1, 2, 10, 10)); // 1 row, 2 columns, 10px gaps
+        panel5.setBorder(new EmptyBorder(10, 10, 10, 10)); // Padding around the panel
+        panel5.setBackground(new Color(40, 230, 220)); // Background color
+
+        // Adding the panel to the container
+        contain.add(panel5, BorderLayout.CENTER);
+
+        // Sugar level options
+        String[] cf = {"Americano", "Cappucino", "Vanilla Latte", "Mocha", "Caramel Latte"};
+        coffeechoice = new JComboBox<>(cf); // Add generic type <String>
+        coffeechoice.setSelectedIndex(0); // Set a valid index (0 to 2)
+
+        // Add components to the panel
+        panel5.add(label5);
+        panel5.add(coffeechoice);
+    }*/
     private void sejuk()
     {
         label1 = new JLabel("HOT OR COLD?");
@@ -48,6 +82,7 @@ public class OrderCoffee extends JFrame implements ActionListener
 
         cold = new JCheckBox("COLD?(If yes, Click on the box)");
 
+        cold.addActionListener(this);
         panel.add(label1);
         panel.add(cold);
     }
@@ -71,6 +106,7 @@ public class OrderCoffee extends JFrame implements ActionListener
         sugar1 = new JComboBox<>(sugar); // Add generic type <String>
         sugar1.setSelectedIndex(0); // Set a valid index (0 to 2)
 
+        sugar1.addActionListener(this);
         // Add components to the panel
         panel2.add(label2);
         panel2.add(sugar1);
@@ -99,6 +135,8 @@ public class OrderCoffee extends JFrame implements ActionListener
         group.add(whipped1);
         group.add(whipped2);
 
+        whipped1.addActionListener(this);
+        whipped2.addActionListener(this);
         panel3.add(label3);
         panel3.add(whipped1);
         panel3.add(whipped2);
@@ -129,31 +167,84 @@ public class OrderCoffee extends JFrame implements ActionListener
         group.add(coffee1);
         group.add(coffee2);
 
+        coffee1.addActionListener(this);
+        coffee2.addActionListener(this);
+
         panel4.add(label4);
         panel4.add(coffee1);
         panel4.add(coffee2);
     }
-    public void actionPerformed(ActionEvent e)
+    private void quant()
     {
-        CoffeeType[] kopi = new CoffeeType[5];
-        kopi[0] = new CoffeeType("Americano",  0, "","","","");
-        kopi[1] = new CoffeeType("Cappucino",  0, "","","","");
-        kopi[2] = new CoffeeType("Vanilla",  0, "","","","");
-        kopi[3] = new CoffeeType("Mocha",  0, "","","","");
-        kopi[4] = new CoffeeType("Caramel",  0, "","","","");
+        // Label for sugar level
+        label6 = new JLabel("QUANTITY");
+        label6.setFont(new Font("Times New Roman", Font.BOLD, 20));
 
-        if(cold.isSelected() )
-        {
-            if(kopi[0].getCoffee() == "Americano")
-            {
 
-            }
-        }
+        quantity = new JTextField();
+        //quantity.setBackground(new Color(1,1,1));
+
+        JPanel panel7 = new JPanel();
+        panel7.setLayout(new GridLayout(1, 2, 10, 10)); // 1 row, 2 columns, 10px gaps
+        panel7.setBorder(new EmptyBorder(10, 100, 10, 100)); // Padding around the panel
+        panel7.setBackground(new Color(40, 230, 220));
+
+        contain.add(panel7,BorderLayout.SOUTH);
+
+        quantity.addActionListener(this);
+
+        panel7.add(label6);
+        panel7.add(quantity);
+
     }
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        double total = 0;
 
-    public static void main(String[]args)
-    {
-        OrderCoffee cd = new OrderCoffee();
-        cd.setVisible(true);
+        // Save whether coffee is cold or hot
+        if (cold.isSelected()) {
+            kopi.setCold("cold");
+        } else {
+            kopi.setCold("hot");
+        }
+
+        // Save sugar level
+        String selectedOption = (String) sugar1.getSelectedItem();
+        kopi.setSugar(selectedOption);
+
+        // Save whipped cream preference
+        if (whipped1.isSelected()) {
+            selectedOption = "yes";
+            kopi.setCream(selectedOption);
+        } else if (whipped2.isSelected()) {
+            selectedOption = "no";
+            kopi.setCream(selectedOption);
+        }
+
+        // Save coffee type
+        if (coffee1.isSelected()) {
+            selectedOption = "boss";
+            kopi.setTypecoffee(selectedOption);
+        } else if (coffee2.isSelected()) {
+            selectedOption = "lydia";
+            kopi.setTypecoffee(selectedOption);
+        }
+
+        // Save quantity and check if it's a valid number
+        String inputText = quantity.getText();
+        if (inputText.matches("\\d+")) {  // Check if the input is a valid number
+            int number = Integer.parseInt(inputText); // Convert to integer
+            kopi.setQuantity(number);
+
+            // Confirmation dialog to ensure data is saved
+            JOptionPane.showMessageDialog(null, "All data saved successfully!");
+            // Assuming kopi is an object of CoffeeType and calcTotal() returns a double
+            total = kopi.calcTotal();
+
+// Display the total in a message dialog
+            JOptionPane.showMessageDialog(null, "The total is: $" + total);
+            // Close the window
+            ((JFrame) SwingUtilities.getWindowAncestor((JComponent) e.getSource())).dispose();
+        }
     }
 }

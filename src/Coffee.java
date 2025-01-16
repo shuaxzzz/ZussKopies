@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 public class Coffee extends JFrame implements ActionListener
 {   //fungsi ActionListener tu supaya sebarang action dibuat, akan masuk kat class bawah (boleh calculate etc)
     private JLabel title,lblc1, lblc2, lblc3, lblc4, lblc5;
-    private JButton btnc1, btnc2, btnc3, btnc4, btnc5, about;
+    private JButton btnc1, btnc2, btnc3, btnc4, btnc5, about,closee;
     private JLabel img1, img2, img3, img4, img5, imgcat;
     private Container contain;
 
@@ -145,50 +145,70 @@ public class Coffee extends JFrame implements ActionListener
         about = new JButton("About Us OwO<3");
         about.setFont(new Font("Times New Roman", Font.PLAIN,20));
 
+        closee = new JButton("Close");
+        closee.addActionListener(this);
+
+
         JPanel pnlsouth = new JPanel();
         contain.add(pnlsouth, BorderLayout.WEST);
         pnlsouth.setLayout(new GridLayout(1, 1, 1, 1));
         pnlsouth.setBorder(new EmptyBorder(0, 0, 0, 0));
 
         pnlsouth.add(about);
+        pnlsouth.add(closee);
 
     }
     @Override
     public void actionPerformed(ActionEvent e)
     {
-        CoffeeType kopi[] = new CoffeeType[5];
+        CoffeeType kopi = new CoffeeType();
+        double total = 0;
         if (e.getSource() == btnc1)
         {
-            OrderCoffee of = new OrderCoffee();
+            kopi.setCoffee("Americano");
+            OrderCoffee of = new OrderCoffee(kopi);
             of.setVisible(true);
 
         }
         else if (e.getSource() == btnc2)
         {
-            OrderCoffee of = new OrderCoffee();
+            kopi.setCoffee("Cappucino");
+            OrderCoffee of = new OrderCoffee(kopi);
             of.setVisible(true);
         }
         else if (e.getSource() == btnc3)
         {
-            OrderCoffee of = new OrderCoffee();
+            kopi.setCoffee("Vanilla");
+            OrderCoffee of = new OrderCoffee(kopi);
             of.setVisible(true);
         }
         else if (e.getSource() == btnc4)
         {
-            OrderCoffee of = new OrderCoffee();
+            kopi.setCoffee("Mocha");
+            OrderCoffee of = new OrderCoffee(kopi);
             of.setVisible(true);
         }
         else if (e.getSource() == btnc5)
         {
-            OrderCoffee of = new OrderCoffee();
+            kopi.setCoffee("Caramel");
+            OrderCoffee of = new OrderCoffee(kopi);
             of.setVisible(true);
+        }
+        total = kopi.calcTotal();
+        if (e.getSource() == closee)
+        {
+            // Confirmation dialog to ensure data is saved
+            JOptionPane.showMessageDialog(null, "THANK YOU FOR USING ZUSS KOPIESS!<3");
+
+            // Close the window
+            ((JFrame) SwingUtilities.getWindowAncestor((JComponent) e.getSource())).dispose();
         }
 
     }
 
     public static void main(String[]args)
     {
-
+        CoffeeType kopi = new CoffeeType();
         Coffee cc = new Coffee(); //ambil dari class atas
         cc.setVisible(true);
 
