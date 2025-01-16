@@ -156,16 +156,12 @@ public class Coffee extends JFrame implements ActionListener
     @Override
     public void actionPerformed(ActionEvent e)
     {
-        CoffeeType[] kopi = new CoffeeType[5];
-        kopi[0] = new extendsCoffeeType("Americano", 16.90, 0, "","","","");
-        kopi[1] = new extendsCoffeeType("Cappucino", 16.90, 0, "","","","");
-        kopi[2] = new extendsCoffeeType("Vanilla", 16.90, 0, "","","","");
-        kopi[3] = new extendsCoffeeType("Mocha", 16.90, 0, "","","","");
-        kopi[4] = new extendsCoffeeType("Caramel", 16.90, 0, "","","","");
+        CoffeeType kopi[] = new CoffeeType[5];
         if (e.getSource() == btnc1)
         {
             OrderCoffee of = new OrderCoffee();
             of.setVisible(true);
+
         }
         else if (e.getSource() == btnc2)
         {

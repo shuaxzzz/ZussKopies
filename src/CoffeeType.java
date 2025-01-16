@@ -1,53 +1,80 @@
 
 
-public abstract class CoffeeType
+public class CoffeeType
 {
     private String coffee;
-    private double price;
     private int quantity;
+    private String cold;
+    private String typecoffee;
+    private String cream;
+    private String sugar;
 
 
     //default constructor
     public CoffeeType()
     {
         coffee = "";
-        price = 0.0;
         quantity = 0;
+        cold = "";
+        typecoffee = "";
+        cream = "";
+        sugar = "";
     }
     //normal constructor
-    public CoffeeType(String coffee, double price, int quantity)
+    public CoffeeType(String coffee, int quantity, String cold, String typecoffee, String cream, String sugar)
     {
         this.coffee = coffee;
-        this.price = price;
         this.quantity = quantity;
+        this.cold = cold;
+        this.typecoffee = typecoffee;
+        this.cream = cream;
+        this.sugar = sugar;
     }
     //setter
     public void setCoffee(String coffee)
     {
         this.coffee = coffee;
     }
-    public void setPrice(double price)
-    {
-        this.price = price;
-    }
     public void setQuantity(int quantity)
     {
         this.quantity = quantity;
     }
+    public void setCold(String cold) {this.cold = cold;}
+    public void setTypecoffee(String typecoffee) {this.typecoffee = typecoffee;}
+    public void setCream(String cream) {this.cream = cream;}
+    public void setSugar(String sugar) {this.sugar = sugar;}
     //getter
     public String getCoffee()
     {
         return coffee;
     }
-    public double getPrice()
-    {
-        return price;
-    }
     public int getQuantity()
     {
         return quantity;
     }
+    public String getCold() {return cold;}
+    public String getTypecoffee() {return typecoffee;}
+    public String getCream() {return cream;}
+    public String getSugar() {return sugar;}
 
-    public abstract double calcTotal();
+    public double calcTotal()
+    {
+        double totalprice = 0;
+        if(coffee == "Americano")
+            totalprice = 6.90*quantity;
+        else if(coffee == "Cappucino")
+            totalprice = 9.90*quantity;
+        else if(coffee == "Vanilla")
+            totalprice = 10.90*quantity;
+        else if(coffee == "Mocha")
+            totalprice = 12.90*quantity;
+        else if(coffee == "Caramel")
+            totalprice = 10.90*quantity;
+
+        if(cream == "yes")
+            totalprice += + 2*quantity;
+
+        return totalprice;
+    }
 }
 
