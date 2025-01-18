@@ -142,6 +142,7 @@ public class WelcomePage extends JFrame implements ActionListener {
             if (username.equals("admin") && password.equals("admin")) {
                 JOptionPane.showMessageDialog(this, "Login Success! Welcome to Zuss Kopiess :)");
                 stopAudio();
+                Food of=new Food(username);
                 new Coffee().setVisible(true);
                 this.dispose();
                 return;
@@ -153,6 +154,7 @@ public class WelcomePage extends JFrame implements ActionListener {
                     JOptionPane.showMessageDialog(this, "Welcome back, " + username + ":) !");
                     userFound = true;
                     stopAudio();
+                    Food of=new Food(username);
                     new Coffee().setVisible(true);
                     this.dispose();
                     break;

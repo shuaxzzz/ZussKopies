@@ -1,106 +1,132 @@
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class Food extends JFrame {
-    public Food() {
-        // Parent panel for layout management
-        JPanel parentLayout = new JPanel(new BorderLayout());
-        parentLayout.setBackground(Color.WHITE); // Set background color for the parent layout
+    private JPanel foodLayout; //layout for food
+    private JLabel header; //header
+    private JScrollPane scrollFood;//scroll layout
+    private JTextArea receiptArea;
+    private double totalPrice = 0.0;
+    private ArrayList<String> receiptItems = new ArrayList<>();//List of food
 
-        // Header panel to combine the logo and message
-        JPanel headerPanel = new JPanel(new BorderLayout());
-        headerPanel.setBorder(new EmptyBorder(10, 10, 10, 10)); // Add padding
-        headerPanel.setBackground(new Color(174,198,207)); // Set background color for header panel
 
-        // Add message
-        JLabel lblMessage = new JLabel("˚ʚ The Warm Mug by Zuss Kopiess ɞ˚ ", SwingConstants.CENTER);
-        lblMessage.setFont(new Font("Courier New", Font.BOLD, 22));
-        lblMessage.setForeground(Color.WHITE); // Text color for header message
+    public Food(String username) {
+        super.setTitle("Welcome to Food Section,Zussies !");
+        super.setSize(700, 650);
 
-        // Add Zuss logo
-        ImageIcon zusLogo = new ImageIcon(Food.class.getResource("/images.png"));
-        Image scaledImage = zusLogo.getImage().getScaledInstance(70, 50, Image.SCALE_SMOOTH);
-        zusLogo = new ImageIcon(scaledImage);
 
-        JLabel lblLogo = new JLabel(zusLogo);
-        lblLogo.setHorizontalAlignment(SwingConstants.CENTER);
+        //header for food setup
+        header.setText("˚ʚ The Warm Mug by Zuss Kopiess ɞ˚");
 
-        // Add components to the header panel
-        headerPanel.add(lblLogo, BorderLayout.WEST); // Logo on the left
-        headerPanel.add(lblMessage, BorderLayout.CENTER); // Message in the center
+        //shopping cart
+        createFoodItems();
 
-        // Add the header panel to the parent layout
-        parentLayout.add(headerPanel, BorderLayout.NORTH);
+        Container cp = super.getContentPane();
+        cp.add(foodLayout);
 
-        // Grid layout for food items (image + name + radio button)
-        JPanel foodGrid = new JPanel(new GridLayout(2, 3, 10, 10));
-        foodGrid.setBackground(Color.LIGHT_GRAY); // Set background color for the grid panel
-
-        // Button group for the radio buttons
-        ButtonGroup foodGroup = new ButtonGroup();
-
-        // Add food images and names with radio buttons to the grid
-        addFoodItemToPanel(foodGrid, foodGroup, "/Burnt Cheese Cake.jpg", "Burnt Cheese Cake");
-        addFoodItemToPanel(foodGrid, foodGroup, "/Biscoff Baked Cheese Cake.jpg", "Biscoff Baked Cheese Cake");
-        addFoodItemToPanel(foodGrid, foodGroup, "/Chicken Lasagna.jpg", "Chicken Lasagna");
-        addFoodItemToPanel(foodGrid, foodGroup, "/Korean Mac & Cheese.jpg", "Korean Mac & Cheese");
-        addFoodItemToPanel(foodGrid, foodGroup, "/Mee Hoon Goreng Siam.jpg", "Mee Hoon Goreng Siam");
-        addFoodItemToPanel(foodGrid, foodGroup, "/Ayam Masak Merah With Rice.jpg", "Ayam Masak Merah With Rice");
-
-        // Add the food grid panel to the parent layout
-        parentLayout.add(foodGrid, BorderLayout.CENTER);
-
-        // Set JFrame properties
-        setContentPane(parentLayout);
-        setTitle("Welcome to the Food Section, Zussies");
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(700, 600);
-        setLocationRelativeTo(null);
-        setVisible(true);
-
-        // Set background color for the JFrame content pane
-        getContentPane().setBackground(Color.WHITE); // Set the background color of the frame's content pane
+        super.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        super.setVisible(true);
     }
 
-    // Method to add an image and corresponding radio button for each food item
-    private void addFoodItemToPanel(JPanel panel, ButtonGroup group, String imagePath, String foodName) {
-        JPanel foodItemPanel = new JPanel();
-        foodItemPanel.setLayout(new BoxLayout(foodItemPanel, BoxLayout.Y_AXIS));  // Use BoxLayout to stack components vertically
-        foodItemPanel.setBackground(Color.WHITE); // Set background color for each food item panel
+    private void createFoodItems(){
+        JPanel foodPanel=new JPanel(new GridLayout(2,3,10,10)); //2*3 layout for food
+        foodPanel.setBackground(Color.GRAY);
+        String[] foodNames = {"Ayam Masak Merah With Rice", "Chicken Lasagna", "Korean Mac & Cheese", "Mee Hoon Goreng Siam", "Biscoff Baked Cheese Cake", "Burnt Cheese Cake","Kampung Fried Rice","Pak Naseer's Nasi Lemak Ayam Rendang"}; //food name
+        double[] foodPrices = {12.90, 13.90, 12.90, 7.90, 13.50, 13.50,11.90,12,90}; //food price
+        String[] foodImages = {"C:\\Users\\NUR FATEHA\\IdeaProjects\\TheWarmMug\\src\\Ayam Masak Merah With Rice.jpg", "C:\\Users\\NUR FATEHA\\IdeaProjects\\TheWarmMug\\src\\Chicken Lasagna.jpg", "C:\\Users\\NUR FATEHA\\IdeaProjects\\TheWarmMug\\src\\Korean Mac & Cheese.jpg", "C:\\Users\\NUR FATEHA\\IdeaProjects\\TheWarmMug\\src\\Mee Hoon Goreng Siam.jpg", "C:\\Users\\NUR FATEHA\\IdeaProjects\\TheWarmMug\\src\\Biscoff Baked Cheese Cake.jpg", "C:\\Users\\NUR FATEHA\\IdeaProjects\\TheWarmMug\\src\\Burnt Cheese Cake.jpg","C:\\Users\\NUR FATEHA\\IdeaProjects\\TheWarmMug\\src\\Kampung Fried Rice.jpg","C:\\Users\\NUR FATEHA\\IdeaProjects\\TheWarmMug\\src\\Pak Naseer's Nasi Lemak Ayam Rendang.jpg"};
 
-        // Load and scale the image
-        ImageIcon icon = new ImageIcon(Food.class.getResource(imagePath));
-        Image scaledImage = icon.getImage().getScaledInstance(150, 100, Image.SCALE_SMOOTH);
-        icon = new ImageIcon(scaledImage);
+        for (int i = 0; i < foodNames.length; i++) {
+            JPanel itemPanel = new JPanel();
+            itemPanel.setLayout(new BoxLayout(itemPanel, BoxLayout.Y_AXIS)); //vertical layout for each food
 
-        // Add the image to a label
-        JLabel lblImage = new JLabel(icon);
-        lblImage.setAlignmentX(Component.CENTER_ALIGNMENT); // Align the image to the center
+            ImageIcon foodIcon = new ImageIcon(foodImages[i]);
+            Image foodImage = foodIcon.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH); // Resize image to fit the box
+            JLabel foodImageLabel = new JLabel(new ImageIcon(foodImage));
+            foodImageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        // Create a radio button for the food item
-        JRadioButton foodButton = new JRadioButton(foodName);
+            JLabel foodName = new JLabel(foodNames[i], SwingConstants.CENTER); // Food name
+            foodName.setFont(new Font("Monospaced", Font.PLAIN, 20));
+            foodName.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        // Set the font for the JRadioButton (family, style, size)
-        foodButton.setFont(new Font("Arial", Font.BOLD, 13)); // You can change the font here
+            JLabel foodPrice = new JLabel("RM" + foodPrices[i], SwingConstants.CENTER); // Food price
+            foodPrice.setFont(new Font("Monospaced", Font.PLAIN, 15));
+            foodPrice.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        // Set the background of the radio button and make it opaque
+            JButton addButton = new JButton("Add to Cart :)"); // "Add to Cart" button
+            addButton.setFont(new Font("Tahoma", Font.BOLD, 14));
+            addButton.setAlignmentX(Component.CENTER_ALIGNMENT); // Center the button
 
-        foodButton.setOpaque(true); // Make sure the background is visible
-        foodButton.setAlignmentX(Component.CENTER_ALIGNMENT); // Align the radio button to the center
+            int index = i; // Capture the index for use in the ActionListener
+            addButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    addToCart(foodNames[index], foodPrices[index]);
+                }
+            });
 
-        // Add the radio button to the button group
-        group.add(foodButton);
+            // Add components to item panel
+            itemPanel.add(foodImageLabel);
+            itemPanel.add(foodName);
+            itemPanel.add(foodPrice);
+            itemPanel.add(addButton);
 
-        // Add the image and radio button to the food item panel
-        foodItemPanel.add(lblImage);
-        foodItemPanel.add(foodButton);
+            // Add item panel to the food panel
+            foodPanel.add(itemPanel);
+        }
 
-        // Add the food item panel to the main panel
-        panel.add(foodItemPanel);
+        // Make the food panel scrollable
+        scrollFood = new JScrollPane(foodPanel);
+        scrollFood.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS); // Enable horizontal scrolling
+        foodLayout.add(scrollFood, BorderLayout.CENTER);
+
+        // Receipt area (bottom part)
+        JPanel receiptPanel = new JPanel(new BorderLayout());
+        receiptArea = new JTextArea(10, 30);
+        receiptArea.setEditable(false);
+        receiptArea.setFont(new Font("Courier New", Font.PLAIN, 14));
+        JScrollPane scrollReceipt = new JScrollPane(receiptArea); // Make receipt scrollable
+        JButton checkoutButton = new JButton("Checkout");
+        checkoutButton.setFont(new Font("Verdana", Font.BOLD, 16));
+        checkoutButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                showReceipt();
+            }
+        });
+
+        // Add components to the receipt panel
+        receiptPanel.add(scrollReceipt, BorderLayout.CENTER);
+        receiptPanel.add(checkoutButton, BorderLayout.SOUTH);
+
+        // Add receipt panel to the main layout
+        foodLayout.add(receiptPanel, BorderLayout.SOUTH);
     }
 
+    // Add item to cart and update the receipt
+    private void addToCart(String foodName, double foodPrice) {
+        receiptItems.add(foodName + " - RM " + foodPrice);
+        totalPrice += foodPrice;
+        receiptArea.setText("Items in Cart:\n" + String.join("\n", receiptItems) + "\n\nTotal: RM " + String.format("%.2f", totalPrice));
+    }
+
+    // Show receipt in a popup dialog
+    private void showReceipt() {
+        JOptionPane.showMessageDialog(null, "Receipt:\n" + String.join("\n", receiptItems) + "\n\nTotal: RM " + String.format("%.2f", totalPrice),
+                "Receipt", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    // Main method to run the program
     public static void main(String[] args) {
-        new Food();
+        // Replace "username" with the actual username you want to use
+        SwingUtilities.invokeLater(() -> {
+            new Food("User"); // Initialize with a username
+        });
+
     }
-}
+
+    }
+
+
