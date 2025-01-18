@@ -1,19 +1,35 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
 public class Coffee extends JFrame implements ActionListener
 {   //fungsi ActionListener tu supaya sebarang action dibuat, akan masuk kat class bawah (boleh calculate etc)
-    private JLabel title,lblc1, lblc2, lblc3, lblc4, lblc5;
-    private JButton btnc1, btnc2, btnc3, btnc4, btnc5, about,closee;
+    private JLabel lblc1, lblc2, lblc3, lblc4, lblc5;
+    private JButton placeorder,closee;
     private JLabel img1, img2, img3, img4, img5, imgcat;
     private Container contain;
+    private Image backgroundImage; // Background image
 
 
     public Coffee()
     {
+        // Load the background image
+        try {
+            backgroundImage = ImageIO.read(new File("C:\\Users\\user\\IdeaProjects\\TheWarmMug\\src\\cat3.jpeg")); // Adjust the path
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Set the custom panel as the content pane
+        BackgroundPanel backgroundPanel = new BackgroundPanel();
+        backgroundPanel.setLayout(new BorderLayout());
+        setContentPane(backgroundPanel);
+
         //yang ni boleh declare super, x perlu pon x pe
         JLabel title = new JLabel("THE WARM CUP BY ZUSS KOPIESS <3", SwingConstants.CENTER);
         title.setFont(new Font("Times New Roman", Font.BOLD, 27));//Tajuk besar
@@ -42,8 +58,23 @@ public class Coffee extends JFrame implements ActionListener
         spacer.setOpaque(true); // Make it transparent
         contain.add(spacer, BorderLayout.SOUTH);
 
+        //untuk background
+        try {
+            // Correct path to the image
+            File imageFile = new File("CC:\\Users\\user\\IdeaProjects\\TheWarmMug\\src\\cat3.jpeg"); // Adjust path here
+            if (imageFile.exists()) {
+                backgroundImage = ImageIO.read(imageFile);
+            } else {
+                System.out.println("Image file not found: " + imageFile.getAbsolutePath());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
         north();
-        centerr();
+        labeling();
+        //centerr();
         south();
 
 
@@ -84,16 +115,22 @@ public class Coffee extends JFrame implements ActionListener
 
 
         JPanel pnlnorth = new JPanel();  //sediakan panel
-        pnlnorth.setLayout(new GridLayout(1, 5, 50, 10)); //set layout
+        pnlnorth.setLayout(new GridLayout(1, 5, 50, 4)); //set layout
         pnlnorth.setBorder(new EmptyBorder(10, 100, 10, 100)); //set border
 
-        pnlnorth.setBackground(new Color(173,216,230)); //set background image kpd biru
+        pnlnorth.setBackground(new Color(210, 180, 140)); //set background image kpd biru
 
         img1.setHorizontalAlignment(SwingConstants.CENTER);
         img2.setHorizontalAlignment(SwingConstants.CENTER);
-        img1.setHorizontalAlignment(SwingConstants.CENTER);
-        img2.setHorizontalAlignment(SwingConstants.CENTER);
-        img1.setHorizontalAlignment(SwingConstants.CENTER);
+        img3.setHorizontalAlignment(SwingConstants.CENTER);
+        img4.setHorizontalAlignment(SwingConstants.CENTER);
+        img5.setHorizontalAlignment(SwingConstants.CENTER);
+
+        img1.setForeground(Color.WHITE);
+        img2.setForeground(Color.WHITE);
+        img3.setForeground(Color.WHITE);
+        img4.setForeground(Color.WHITE);
+        img5.setForeground(Color.WHITE);
 
         contain.add(pnlnorth,BorderLayout.CENTER);
         pnlnorth.add(img1,BorderLayout.CENTER);
@@ -103,8 +140,36 @@ public class Coffee extends JFrame implements ActionListener
         pnlnorth.add(img5,BorderLayout.CENTER);
 
     }
+    private void labeling()
+    {
+        JPanel panel = new JPanel();
+        lblc1 = new JLabel("Americano\n(RM6.90)");
+        lblc2 = new JLabel("Cappucino\n(RM9.90)");
+        lblc3 = new JLabel("Vanilla Latte\n(RM10.90)");
+        lblc4 = new JLabel("Mocha\n(RM12.90)");
+        lblc5 = new JLabel("Caramel Latte\n(RM10.90)");
 
-    private void centerr()
+        lblc1.setFont(new Font("Times New Roman", Font.BOLD, 12));
+        lblc2.setFont(new Font("Times New Roman", Font.BOLD, 12));
+        lblc3.setFont(new Font("Times New Roman", Font.BOLD, 12));
+        lblc4.setFont(new Font("Times New Roman", Font.BOLD, 12));
+        lblc5.setFont(new Font("Times New Roman", Font.BOLD, 12));
+
+        panel.setLayout(new GridLayout(1,5,2,3));
+        panel.setBorder(new EmptyBorder(10, 100, 10, 100));
+
+        contain.add(panel,BorderLayout.SOUTH);
+
+        panel.add(lblc1);
+        panel.add(lblc2);
+        panel.add(lblc3);
+        panel.add(lblc4);
+        panel.add(lblc5);
+
+
+    }
+
+    /*private void centerr()
     {
         btnc1 = new JButton("Americano<3");
         btnc2 = new JButton("Cappucino<3");
@@ -139,62 +204,40 @@ public class Coffee extends JFrame implements ActionListener
         pnlcenter.add(btnc4);
         pnlcenter.add(btnc5);
 
-    }
+    }*/
     private void south()
     {
-        about = new JButton("About Us OwO<3");
-        about.setFont(new Font("Times New Roman", Font.PLAIN,20));
 
-        closee = new JButton("Close");
+        closee = new JButton("Close <3");
+        closee.setFont(new Font("Times New Roman", Font.BOLD, 14));
         closee.addActionListener(this);
+
+        placeorder = new JButton("Place Order <3");
+        placeorder.setFont(new Font("Times New Roman", Font.BOLD, 14));
+        placeorder.addActionListener(this);
 
 
         JPanel pnlsouth = new JPanel();
         contain.add(pnlsouth, BorderLayout.WEST);
-        pnlsouth.setLayout(new GridLayout(1, 1, 1, 1));
+        pnlsouth.setLayout(new GridLayout(1, 1, 5, 5));
         pnlsouth.setBorder(new EmptyBorder(0, 0, 0, 0));
 
-        pnlsouth.add(about);
         pnlsouth.add(closee);
+        pnlsouth.add(placeorder);
 
     }
     @Override
     public void actionPerformed(ActionEvent e)
     {
+        CountCoffee countcp = new CountCoffee();
         CoffeeType kopi = new CoffeeType();
+        OrderCoffee of = new OrderCoffee(kopi);
         double total = 0;
-        if (e.getSource() == btnc1)
-        {
-            kopi.setCoffee("Americano");
-            OrderCoffee of = new OrderCoffee(kopi);
-            of.setVisible(true);
 
-        }
-        else if (e.getSource() == btnc2)
+        if (e.getSource() == placeorder)
         {
-            kopi.setCoffee("Cappucino");
-            OrderCoffee of = new OrderCoffee(kopi);
             of.setVisible(true);
         }
-        else if (e.getSource() == btnc3)
-        {
-            kopi.setCoffee("Vanilla");
-            OrderCoffee of = new OrderCoffee(kopi);
-            of.setVisible(true);
-        }
-        else if (e.getSource() == btnc4)
-        {
-            kopi.setCoffee("Mocha");
-            OrderCoffee of = new OrderCoffee(kopi);
-            of.setVisible(true);
-        }
-        else if (e.getSource() == btnc5)
-        {
-            kopi.setCoffee("Caramel");
-            OrderCoffee of = new OrderCoffee(kopi);
-            of.setVisible(true);
-        }
-        total = kopi.calcTotal();
         if (e.getSource() == closee)
         {
             // Confirmation dialog to ensure data is saved
@@ -204,6 +247,16 @@ public class Coffee extends JFrame implements ActionListener
             ((JFrame) SwingUtilities.getWindowAncestor((JComponent) e.getSource())).dispose();
         }
 
+    }
+    //For background
+    private class BackgroundPanel extends JPanel {
+        @Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            if (backgroundImage != null) {
+                g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+            }
+        }
     }
 
     public static void main(String[]args)

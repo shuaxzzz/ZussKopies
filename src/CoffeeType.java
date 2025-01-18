@@ -64,11 +64,11 @@ public class CoffeeType
             totalprice = 6.90*quantity;
         else if(coffee == "Cappucino")
             totalprice = 9.90*quantity;
-        else if(coffee == "Vanilla")
+        else if(coffee == "Vanilla Latte")
             totalprice = 10.90*quantity;
         else if(coffee == "Mocha")
             totalprice = 12.90*quantity;
-        else if(coffee == "Caramel")
+        else if(coffee == "Caramel Latte")
             totalprice = 10.90*quantity;
 
         if(cream == "yes")
