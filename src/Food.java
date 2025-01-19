@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Food extends JFrame {
@@ -114,8 +116,14 @@ public class Food extends JFrame {
         receiptItems.add(foodName + " - RM " + foodPrice);
         totalPrice += foodPrice;
         receiptArea.setText("Items in Cart:\n" + String.join("\n", receiptItems) + "\n\nTotal: RM " + String.format("%.2f", totalPrice));
-    }
 
+        // Write to file
+        try (FileWriter writer = new FileWriter("orders.txt", true)) {
+            writer.write(foodName + " - RM " + foodPrice + "\n");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
     // Show receipt in a popup dialog
     private void showReceipt() {
         JOptionPane.showMessageDialog(null, "Receipt:\n" + String.join("\n", receiptItems) + "\n\nTotal: RM " + String.format("%.2f", totalPrice),

@@ -4,8 +4,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -15,7 +14,7 @@ public class MainMenu extends JFrame implements ActionListener
     private JLabel img1,img2,img3,img4,img5,img6;
     private Container contain;
     private Image backgroundImage;
-    private JButton btn1, btn2, close;
+    private JButton btn1, btn2, close, printReceipt;
 
     public MainMenu()
     {
@@ -112,17 +111,21 @@ public class MainMenu extends JFrame implements ActionListener
         btn2.setFont(new Font("Times New Roman", Font.PLAIN, 15));
         close = new JButton("CLOSE <3");
         close.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+        printReceipt = new JButton("PRINT RECEIPT <3");
+        printReceipt.setFont(new Font("Times New Roman", Font.PLAIN, 15));
 
         JPanel panel2 = new JPanel();
         panel2.setBorder(new EmptyBorder(1,1,1,1));
-        panel2.setLayout(new GridLayout(1, 2, 100, 100)); // 1 row, 2 columns, 10px gaps
+        panel2.setLayout(new GridLayout(1, 4, 50, 50)); // 1 row, 4 columns, spacing adjusted
 
         btn1.addActionListener(this);
         btn2.addActionListener(this);
         close.addActionListener(this);
+        printReceipt.addActionListener(this);
 
         panel2.add(btn1);
         panel2.add(btn2);
+        panel2.add(printReceipt);
         panel2.add(close);
         contain.add(panel2);
     }
@@ -136,17 +139,37 @@ public class MainMenu extends JFrame implements ActionListener
             // Display Coffee Window
             Coffee coffeeWindow = new Coffee();
             coffeeWindow.setVisible(true);
-        }
-        if (e.getSource() == close)
-        {
+        } else if (e.getSource() == printReceipt) {
+            // Display Receipt with Total Price
+            try (BufferedReader br = new BufferedReader(new FileReader("orders.txt"))) {
+                StringBuilder receiptContent = new StringBuilder();
+                String line;
+                double totalPrice = 0.0;
+
+                while ((line = br.readLine()) != null) {
+                    receiptContent.append(line).append("\n");
+                    if (line.contains("Price:")) {
+                        String priceString = line.split("Price:")[1].trim();
+                        totalPrice += Double.parseDouble(priceString);
+                    }
+                }
+
+                receiptContent.append("\nTotal Price: RM").append(String.format("%.2f", totalPrice));
+                JOptionPane.showMessageDialog(this, receiptContent.toString(), "Receipt", JOptionPane.INFORMATION_MESSAGE);
+            } catch (IOException ioException) {
+                JOptionPane.showMessageDialog(this, "Error reading the receipt file.", "Error", JOptionPane.ERROR_MESSAGE);
+            } catch (NumberFormatException numberFormatException) {
+                JOptionPane.showMessageDialog(this, "Error parsing price from receipt file.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } else if (e.getSource() == close) {
             // Confirmation dialog to ensure data is saved
             JOptionPane.showMessageDialog(null, "THANK YOU FOR USING ZUSS KOPIESS!<3");
             ((JFrame) SwingUtilities.getWindowAncestor((JComponent) e.getSource())).dispose();
-        }else {
+        } else {
             System.out.println("Unrecognized action");
         }
-
     }
+
     private class BackgroundPanel extends JPanel {
         @Override
         protected void paintComponent(Graphics g) {
@@ -163,4 +186,3 @@ public class MainMenu extends JFrame implements ActionListener
         mainn.setVisible(true);
     }
 }
-

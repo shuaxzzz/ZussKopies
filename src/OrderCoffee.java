@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.io.FileWriter;
 
 public class OrderCoffee extends JFrame implements ActionListener {
     private JLabel label1, label2, label3, label4, label6, label5, tittle;
@@ -232,71 +233,65 @@ public class OrderCoffee extends JFrame implements ActionListener {
         double total = 0;
         int totalcup = 0;
         String temp = "";
-        //CountCoffee kira = new CountCoffee();
-        // Save whether coffee is cold or hot
+
         String selectedOption1 = (String) coffeechoice.getSelectedItem();
         kopi.setCoffee(selectedOption1);
 
         if (cold.isSelected()) {
             kopi.setCold("cold");
-            temp = "cold;";
+            temp = "cold";
         } else {
             kopi.setCold("hot");
             temp = "hot";
         }
 
-        String[] temperature = {temp};
-
-        // Save sugar level
         String selectedOption = (String) sugar1.getSelectedItem();
         kopi.setSugar(selectedOption);
 
-        // Save whipped cream preference
         String whip = "";
         if (whipped1.isSelected()) {
-            selectedOption = "yes";
             whip = "yes";
-            kopi.setCream(selectedOption);
+            kopi.setCream("yes");
         } else if (whipped2.isSelected()) {
-            selectedOption = "no";
             whip = "no";
-            kopi.setCream(selectedOption);
+            kopi.setCream("no");
         }
 
-        String[] whipped = {whip};
-
-
-        // Save coffee type
         String rasa = "";
         if (coffee1.isSelected()) {
-            selectedOption = "boss";
             rasa = "boss";
-            kopi.setTypecoffee(selectedOption);
+            kopi.setTypecoffee("boss");
         } else if (coffee2.isSelected()) {
-            selectedOption = "lydia";
             rasa = "lydia";
-            kopi.setTypecoffee(selectedOption);
+            kopi.setTypecoffee("lydia");
         }
 
-        String[] taste = {rasa};
-
-        // Save quantity and check if it's a valid number
         String inputText = quantity.getText();
-        if (inputText.matches("\\d+")) {  // Check if the input is a valid number
-            int number = Integer.parseInt(inputText); // Convert to integer
+        if (inputText.matches("\\d+")) {
+            int number = Integer.parseInt(inputText);
             totalcup = number;
             kopi.setQuantity(number);
-            // Assuming kopi is an object of CoffeeType and calcTotal() returns a double
             total = kopi.calcTotal();
 
-// Display the total in a message dialog
-            JOptionPane.showMessageDialog(null, "The total is: $" + total);
-            // Close the window
+            JOptionPane.showMessageDialog(null, "The total is: RM " + total);
             ((JFrame) SwingUtilities.getWindowAncestor((JComponent) e.getSource())).dispose();
         }
-        coffeetypes.add(new CoffeeType(selectedOption1,totalcup,temp,rasa,whip,selectedOption ));
-        if (e.getSource() == addcart)
-        {
+
+        coffeetypes.add(new CoffeeType(selectedOption1, totalcup, temp, rasa, whip, selectedOption));
+
+        if (e.getSource() == addcart) {
+            // Save order details to file
+            try (FileWriter writer = new FileWriter("orders.txt", true)) {
+                String coffeeDetails = selectedOption1 + " ("
+                        + temp + ", "
+                        + "Whipped Cream: " + whip + ", "
+                        + "Sugar: " + selectedOption + ", "
+                        + "Qty: " + totalcup + ") - RM " + total;
+                writer.write(coffeeDetails + "\n");
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+
             // Confirmation dialog to ensure data is saved
             JOptionPane.showMessageDialog(null, "ADDED TO CART");
 
@@ -304,6 +299,7 @@ public class OrderCoffee extends JFrame implements ActionListener {
             ((JFrame) SwingUtilities.getWindowAncestor((JComponent) e.getSource())).dispose();
         }
     }
+
 
     //For background
     private class BackgroundPanel extends JPanel {
