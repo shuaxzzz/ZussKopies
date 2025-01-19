@@ -90,11 +90,15 @@ public class Food extends JFrame {
         JScrollPane scrollReceipt = new JScrollPane(receiptArea); // Make receipt scrollable
         JButton checkoutButton = new JButton("Checkout");
         checkoutButton.setFont(new Font("Verdana", Font.BOLD, 16));
-        checkoutButton.addActionListener(new ActionListener() {
+        checkoutButton.addActionListener(new ActionListener()
+        {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e)
+            {
                 showReceipt();
+                ((JFrame) SwingUtilities.getWindowAncestor((JComponent) e.getSource())).dispose();
             }
+
         });
 
         // Add components to the receipt panel

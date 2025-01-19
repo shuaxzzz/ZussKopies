@@ -6,18 +6,19 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
-public class Coffee extends JFrame implements ActionListener
-{   //fungsi ActionListener tu supaya sebarang action dibuat, akan masuk kat class bawah (boleh calculate etc)
+public class Coffee extends JFrame implements ActionListener {   //fungsi ActionListener tu supaya sebarang action dibuat, akan masuk kat class bawah (boleh calculate etc)
     private JLabel lblc1, lblc2, lblc3, lblc4, lblc5;
-    private JButton placeorder,closee;
+    private JButton placeorder, closee;
     private JLabel img1, img2, img3, img4, img5, imgcat;
     private Container contain;
     private Image backgroundImage; // Background image
+    private JTextArea receiptArea;
+    private ArrayList<String> receiptItems = new ArrayList<>();//List of drinnk
 
 
-    public Coffee()
-    {
+    public Coffee() {
         // Load the background image
         try {
             backgroundImage = ImageIO.read(new File("C:\\Users\\user\\IdeaProjects\\TheWarmMug\\src\\cat3.jpeg")); // Adjust the path
@@ -33,8 +34,8 @@ public class Coffee extends JFrame implements ActionListener
         //yang ni boleh declare super, x perlu pon x pe
         JLabel title = new JLabel("THE WARM CUP BY ZUSS KOPIESS <3", SwingConstants.CENTER);
         title.setFont(new Font("Times New Roman", Font.BOLD, 27));//Tajuk besar
-        setSize(800,600); //size kotak
-        setLocation(300,100); //jarak dari hujung screen;
+        setSize(800, 600); //size kotak
+        setLocation(300, 100); //jarak dari hujung screen;
         setDefaultCloseOperation(EXIT_ON_CLOSE); //supaya tekan pangkah, terus tutup
 
         //cat label
@@ -45,10 +46,10 @@ public class Coffee extends JFrame implements ActionListener
         imgcat = new JLabel(cat);
 
         contain = getContentPane(); //declare dari class J yang tersedia, untuk isi apa ii dalam pane
-        contain.setBackground(new Color(173,216,230)); // tukar background color
+        contain.setBackground(new Color(173, 216, 230)); // tukar background color
         contain.setLayout(new FlowLayout());
 
-        imgcat.setBackground(new Color(173,216,230));
+        imgcat.setBackground(new Color(173, 216, 230));
 
         contain.add(title, BorderLayout.NORTH);
         contain.add(imgcat, BorderLayout.NORTH);
@@ -71,15 +72,14 @@ public class Coffee extends JFrame implements ActionListener
             e.printStackTrace();
         }
 
-
+        //call all function
         north();
         labeling();
         //centerr();
         south();
 
-
+        // Receipt area (bottom part)
     }
-
     private void north()
     {
         //image 1
@@ -231,12 +231,12 @@ public class Coffee extends JFrame implements ActionListener
     {
         CountCoffee countcp = new CountCoffee();
         CoffeeType kopi = new CoffeeType();
-        OrderCoffee of = new OrderCoffee(kopi);
+        OrderCoffee oc = new OrderCoffee(kopi);
         double total = 0;
 
         if (e.getSource() == placeorder)
         {
-            of.setVisible(true);
+            oc.setVisible(true);
         }
         if (e.getSource() == closee)
         {
@@ -257,14 +257,6 @@ public class Coffee extends JFrame implements ActionListener
                 g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
             }
         }
-    }
-
-    public static void main(String[]args)
-    {
-        CoffeeType kopi = new CoffeeType();
-        Coffee cc = new Coffee(); //ambil dari class atas
-        cc.setVisible(true);
-
     }
 }
 

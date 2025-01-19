@@ -8,9 +8,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class OrderCoffee extends JFrame implements ActionListener
-{
-    private JLabel label1,label2,label3,label4,label6,label5,tittle;
+public class OrderCoffee extends JFrame implements ActionListener {
+    private JLabel label1, label2, label3, label4, label6, label5, tittle;
     private JCheckBox cold;
     private JComboBox sugar1, coffeechoice;
     private JRadioButton whipped1, whipped2;
@@ -21,10 +20,10 @@ public class OrderCoffee extends JFrame implements ActionListener
     private java.util.ArrayList<CoffeeType> coffeetypes;
     private CoffeeType kopi; // Declare the CoffeeType object
     private Image backgroundImage; // Background image
+    private JTextArea receiptArea;
 
 
-    public OrderCoffee(CoffeeType kopi)
-    {
+    public OrderCoffee(CoffeeType kopi) {
         try {
             backgroundImage = ImageIO.read(new File("C:\\Users\\user\\IdeaProjects\\TheWarmMug\\src\\cat5.jpeg")); // Adjust the path
         } catch (IOException e) {
@@ -41,15 +40,15 @@ public class OrderCoffee extends JFrame implements ActionListener
 
         coffeetypes = new ArrayList<>();
 
-        setSize(700,500); //size kotak
-        setLocation(300,100); //jarak dari hujung screen;
+        setSize(700, 500); //size kotak
+        setLocation(300, 100); //jarak dari hujung screen;
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         contain = getContentPane();
-        contain.setBackground(new Color(173,200,220)); // tukar background color
+        contain.setBackground(new Color(173, 200, 220)); // tukar background color
         contain.setLayout(new FlowLayout());
 
-        coffeetypes=new ArrayList<>();
+        coffeetypes = new ArrayList<>();
 
         contain.add(tittle, BorderLayout.NORTH);
 
@@ -60,7 +59,6 @@ public class OrderCoffee extends JFrame implements ActionListener
         CoffeeTypee();
         quant();
         button();
-
     }
     private void pilihankopi()
     {
@@ -247,6 +245,8 @@ public class OrderCoffee extends JFrame implements ActionListener
             temp = "hot";
         }
 
+        String[] temperature = {temp};
+
         // Save sugar level
         String selectedOption = (String) sugar1.getSelectedItem();
         kopi.setSugar(selectedOption);
@@ -263,6 +263,8 @@ public class OrderCoffee extends JFrame implements ActionListener
             kopi.setCream(selectedOption);
         }
 
+        String[] whipped = {whip};
+
 
         // Save coffee type
         String rasa = "";
@@ -276,6 +278,8 @@ public class OrderCoffee extends JFrame implements ActionListener
             kopi.setTypecoffee(selectedOption);
         }
 
+        String[] taste = {rasa};
+
         // Save quantity and check if it's a valid number
         String inputText = quantity.getText();
         if (inputText.matches("\\d+")) {  // Check if the input is a valid number
@@ -284,6 +288,8 @@ public class OrderCoffee extends JFrame implements ActionListener
             kopi.setQuantity(number);
             // Assuming kopi is an object of CoffeeType and calcTotal() returns a double
             total = kopi.calcTotal();
+            CountCoffee cc = new CountCoffee();
+            cc.setCountkopi(total);
 
 // Display the total in a message dialog
             JOptionPane.showMessageDialog(null, "The total is: $" + total);
@@ -311,12 +317,15 @@ public class OrderCoffee extends JFrame implements ActionListener
             }
         }
     }
+
     public static void main(String[]args)
     {
         CoffeeType cc = new CoffeeType();
         OrderCoffee oc = new OrderCoffee(cc);
+        CountCoffee countc = new CountCoffee();
         oc.setVisible(true);
 
         System.out.println(cc.getCoffee());
+        System.out.println(countc.totalcountkopi());
     }
 }

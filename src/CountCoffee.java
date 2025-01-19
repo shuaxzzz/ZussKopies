@@ -1,26 +1,26 @@
 public class CountCoffee
 {
-    private int countkopi;
-    private int countt;
+    private double countkopi;
+    private double totalall;
 
     public CountCoffee()
     {countkopi = 0;
-        countt= 0;}
+        totalall= 0;}
 
-    public CountCoffee(int countkopi)
+    public CountCoffee(double countkopi)
     {this.countkopi = countkopi;
-        this.countt = countkopi;}
+        this.totalall = countkopi;}
 
-    public void setCountkopi(int countkopi) {this.countkopi = countkopi;}
-    public int getCountkopi() {return countkopi;}
+    public void setCountkopi(double countkopi) {this.countkopi = countkopi;}
+    public double getCountkopi() {return countkopi;}
 
-    public void setCountt(int countt) {this.countkopi = countkopi;}
+    public void setCountt(double countt) {this.countkopi = countkopi;}
 
-    public int totalcountkopi()
+    public double totalcountkopi()
     {
-        int total;
-        total = countkopi + 1;
-        countkopi = total;
+        double total = totalall;
+        total = countkopi + totalall;
+        totalall = total;
         return total;
     }
 }
