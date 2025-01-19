@@ -290,7 +290,7 @@ public class OrderCoffee extends JFrame implements ActionListener {
             total = kopi.calcTotal();
 
 // Display the total in a message dialog
-            JOptionPane.showMessageDialog(null, "The total is: $" + total);
+            JOptionPane.showMessageDialog(null, "The total is: RM" + total);
             // Close the window
             ((JFrame) SwingUtilities.getWindowAncestor((JComponent) e.getSource())).dispose();
         }
