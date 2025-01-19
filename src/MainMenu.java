@@ -20,7 +20,7 @@ public class MainMenu extends JFrame implements ActionListener
     public MainMenu()
     {
         try {
-            backgroundImage = ImageIO.read(new File("C:\\Users\\user\\IdeaProjects\\TheWarmMug\\src\\cat4.jpeg")); // Adjust the path
+            backgroundImage = ImageIO.read(new File("C:\\Users\\NUR FATEHA\\IdeaProjects\\TheWarmMug\\src\\cat4.jpeg")); // Adjust the path
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -106,17 +106,18 @@ public class MainMenu extends JFrame implements ActionListener
         contain.add(panel2);
     }
 
-    public void actionPerformed(ActionEvent e)
-    {
-        String name = " ";
-        Food od = new Food(name);
-        Coffee cf = new Coffee();
-
-        if (e.getSource() == btn1)
-         od.setVisible(true);
-
-        if(e.getSource() == btn2)
-         cf.setVisible(true);
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == btn1) {
+            // Display Food Window
+            Food foodWindow = new Food("Example Food");
+            foodWindow.setVisible(true);
+        } else if (e.getSource() == btn2) {
+            // Display Coffee Window
+            Coffee coffeeWindow = new Coffee();
+            coffeeWindow.setVisible(true);
+        } else {
+            System.out.println("Unrecognized action");
+        }
 
     }
     private class BackgroundPanel extends JPanel {
