@@ -229,7 +229,6 @@ public class Coffee extends JFrame implements ActionListener {   //fungsi Action
     @Override
     public void actionPerformed(ActionEvent e)
     {
-        CountCoffee countcp = new CountCoffee();
         CoffeeType kopi = new CoffeeType();
         OrderCoffee oc = new OrderCoffee(kopi);
         double total = 0;

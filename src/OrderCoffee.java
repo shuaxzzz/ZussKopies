@@ -288,8 +288,6 @@ public class OrderCoffee extends JFrame implements ActionListener {
             kopi.setQuantity(number);
             // Assuming kopi is an object of CoffeeType and calcTotal() returns a double
             total = kopi.calcTotal();
-            CountCoffee cc = new CountCoffee();
-            cc.setCountkopi(total);
 
 // Display the total in a message dialog
             JOptionPane.showMessageDialog(null, "The total is: $" + total);
@@ -322,10 +320,8 @@ public class OrderCoffee extends JFrame implements ActionListener {
     {
         CoffeeType cc = new CoffeeType();
         OrderCoffee oc = new OrderCoffee(cc);
-        CountCoffee countc = new CountCoffee();
         oc.setVisible(true);
 
         System.out.println(cc.getCoffee());
-        System.out.println(countc.totalcountkopi());
     }
 }
