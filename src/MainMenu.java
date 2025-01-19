@@ -20,7 +20,7 @@ public class MainMenu extends JFrame implements ActionListener
     public MainMenu()
     {
         try {
-            backgroundImage = ImageIO.read(new File("C:\\Users\\NUR FATEHA\\IdeaProjects\\TheWarmMug\\src\\cat4.jpeg")); // Adjust the path
+            backgroundImage = ImageIO.read(new File("C:\\Users\\user\\IdeaProjects\\TheWarmMug\\src\\cat4.jpeg")); // Adjust the path
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -40,8 +40,8 @@ public class MainMenu extends JFrame implements ActionListener
         JPanel panel1 = new JPanel();
         JPanel panel11 = new JPanel();
         panelTop.setBorder(new EmptyBorder(10, 500, 10, 500)); //set border
-        panel2.setLayout(new GridLayout(1, 5, 50, 4)); //set layout
-        panel2.setBorder(new EmptyBorder(10, 500, 10, 500)); //set border
+        panel2.setLayout(new BorderLayout()); //set layout
+        panel2.setBorder(new EmptyBorder(20, 20, 20, 20)); //set border
         panel1.setLayout(new GridLayout(1, 5, 50, 4)); //set layout
         panel1.setBorder(new EmptyBorder(10, 500, 10, 500)); //set border
         panel11.setLayout(new GridLayout(1, 5, 50, 4)); //set layout
@@ -49,7 +49,9 @@ public class MainMenu extends JFrame implements ActionListener
 
         tittle = new JLabel("WELCOME TO ZUSS KOPIESS!<3");
         tittle.setFont(new Font("Times New Roman", Font.BOLD, 26));
+        tittle.setForeground(new Color(255,255,255)); //change word colour
         lbl1 = new JLabel("****  ABOUT US <3  ****");
+        lbl1.setForeground(new Color(101, 67, 33)); //change word colour
         lbl1.setFont(new Font("Times New Roman", Font.BOLD, 20));
 
         // Date Label
@@ -60,13 +62,22 @@ public class MainMenu extends JFrame implements ActionListener
         dateLabel.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 
 
-        about = new JLabel("Our system will able to help customer to take order easily and quickly");
-        about.setFont(new Font("Times New Roman", Font.BOLD, 15));
+        about = new JLabel(
+                "<html><div style='text-align: center; width: 500px;'>"
+                        + "Our system is designed to address the challenges a cafe shop faces in managing daily operations effectively. "
+                        + "Cafe shops usually encounter difficulties in handling customer orders, maintaining accurate inventory records, "
+                        + "and ensuring efficient payment processing, particularly during peak hours. "
+                        + "So, we invented the Zus Coffee system to enhance operational efficiency, reduce errors, "
+                        + "and support the business's growth in a competitive market."
+                        + "</div></html>",
+                SwingConstants.CENTER
+        );
+        about.setFont(new Font("Times New Roman", Font.PLAIN, 15));
 
         contain = getContentPane(); //declare dari class J yang tersedia, untuk isi apa ii dalam pane
         contain.setLayout(new FlowLayout());
         contain.add(tittle,BorderLayout.NORTH);
-        contain.add(panel2);
+        contain.add(panel2,BorderLayout.CENTER);
         contain.add(panel11);
         contain.add(panel1);
         contain.add(panelTop);
@@ -75,6 +86,12 @@ public class MainMenu extends JFrame implements ActionListener
         panel11.add(lbl1);
         panel2.add(about);
         panel1.add(dateLabel);
+
+        panelTop.setBackground(new Color(210, 180, 140));
+        panel11.setBackground(new Color(255, 218, 185));
+        panel2.setBackground(new Color(245, 222, 179));
+        panel1.setBackground(new Color(255, 218, 185));
+
 
         // Add panels to the frame
         add(panelTop, BorderLayout.NORTH);
