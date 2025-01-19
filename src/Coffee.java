@@ -239,9 +239,6 @@ public class Coffee extends JFrame implements ActionListener {   //fungsi Action
         }
         if (e.getSource() == closee)
         {
-            // Confirmation dialog to ensure data is saved
-            JOptionPane.showMessageDialog(null, "THANK YOU FOR USING ZUSS KOPIESS!<3");
-
             // Close the window
             ((JFrame) SwingUtilities.getWindowAncestor((JComponent) e.getSource())).dispose();
         }

@@ -15,7 +15,7 @@ public class MainMenu extends JFrame implements ActionListener
     private JLabel img1,img2,img3,img4,img5,img6;
     private Container contain;
     private Image backgroundImage;
-    private JButton btn1, btn2;
+    private JButton btn1, btn2, close;
 
     public MainMenu()
     {
@@ -47,7 +47,7 @@ public class MainMenu extends JFrame implements ActionListener
         panel11.setLayout(new GridLayout(1, 5, 50, 4)); //set layout
         panel11.setBorder(new EmptyBorder(10, 500, 10, 500)); //set border
 
-        tittle = new JLabel("WELCOME TO ZUSS KOPIES!<3");
+        tittle = new JLabel("WELCOME TO ZUSS KOPIESS!<3");
         tittle.setFont(new Font("Times New Roman", Font.BOLD, 26));
         lbl1 = new JLabel("****  ABOUT US <3  ****");
         lbl1.setFont(new Font("Times New Roman", Font.BOLD, 20));
@@ -89,10 +89,12 @@ public class MainMenu extends JFrame implements ActionListener
 
     private void button()
     {
-        btn1 = new JButton("ORDER FOOD");
+        btn1 = new JButton("ORDER FOOD <3");
         btn1.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-        btn2 = new JButton("ORDER DRINK");
+        btn2 = new JButton("ORDER DRINK <3");
         btn2.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+        close = new JButton("CLOSE <3");
+        close.setFont(new Font("Times New Roman", Font.PLAIN, 15));
 
         JPanel panel2 = new JPanel();
         panel2.setBorder(new EmptyBorder(1,1,1,1));
@@ -100,9 +102,11 @@ public class MainMenu extends JFrame implements ActionListener
 
         btn1.addActionListener(this);
         btn2.addActionListener(this);
+        close.addActionListener(this);
 
         panel2.add(btn1);
         panel2.add(btn2);
+        panel2.add(close);
         contain.add(panel2);
     }
 
@@ -115,7 +119,13 @@ public class MainMenu extends JFrame implements ActionListener
             // Display Coffee Window
             Coffee coffeeWindow = new Coffee();
             coffeeWindow.setVisible(true);
-        } else {
+        }
+        if (e.getSource() == close)
+        {
+            // Confirmation dialog to ensure data is saved
+            JOptionPane.showMessageDialog(null, "THANK YOU FOR USING ZUSS KOPIESS!<3");
+            ((JFrame) SwingUtilities.getWindowAncestor((JComponent) e.getSource())).dispose();
+        }else {
             System.out.println("Unrecognized action");
         }
 
