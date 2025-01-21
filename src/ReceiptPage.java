@@ -1,39 +1,80 @@
 import javax.swing.*;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.awt.*;
+import java.io.*;
 
 public class ReceiptPage extends JFrame {
     public ReceiptPage() {
         setTitle("Receipt");
-        setSize(500, 600);
+        setSize(700, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
+        // Set layout to center the receipt
+        setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.anchor = GridBagConstraints.CENTER;
+
+        // Formal header for receipt
         JTextArea receiptArea = new JTextArea();
         receiptArea.setEditable(false);
+        receiptArea.setFont(new Font("Monospaced", Font.PLAIN, 14)); // Use monospaced font for alignment
+        receiptArea.setMargin(new Insets(10, 10, 10, 10)); // Add padding for better visuals
         JScrollPane scrollPane = new JScrollPane(receiptArea);
+        scrollPane.setPreferredSize(new Dimension(600, 500));
 
         double totalPrice = 0.0;
-        StringBuilder receiptContent = new StringBuilder("Receipt:\n\n");
+        StringBuilder receiptContent = new StringBuilder();
+
+        // Add a formal header to the receipt
+        receiptContent.append("==========================================================================\n");
+        receiptContent.append("                               ZUSS COFFEE          \n");
+        receiptContent.append("==========================================================================\n");
+        receiptContent.append("Date: ").append(java.time.LocalDate.now()).append("\n");
+        receiptContent.append("Time: ").append(java.time.LocalTime.now().withNano(0)).append("\n");
+        receiptContent.append("==========================================================================\n\n");
+
+        receiptContent.append("Items Purchased:\n");
 
         try (BufferedReader reader = new BufferedReader(new FileReader("orders.txt"))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                receiptContent.append(line).append("\n");
                 if (line.contains("RM")) {
-                    String pricePart = line.substring(line.lastIndexOf("RM") + 2).trim();
-                    totalPrice += Double.parseDouble(pricePart);
+                    int priceIndex = line.lastIndexOf("RM");
+                    String itemName = line.substring(0, priceIndex).trim();
+                    String pricePart = line.substring(priceIndex).trim();
+
+                    // Format item and price for proper alignment
+                    receiptContent.append(String.format("%-60s %10s\n", itemName, pricePart));
+
+                    double price = Double.parseDouble(pricePart.substring(2).trim()); // Extract numeric part
+                    totalPrice += price;
+                } else {
+                    receiptContent.append(line).append("\n");
                 }
             }
         } catch (IOException ex) {
             ex.printStackTrace();
         }
 
-        receiptContent.append("\nTotal: RM ").append(String.format("%.2f", totalPrice));
+        // Add a line to separate items from the total
+        receiptContent.append("\n=========================================================================\n");
+        receiptContent.append(String.format("%-60s %10s\n", "Total Amount Due:", String.format("RM %.2f", totalPrice)));
+        receiptContent.append("=========================================================================\n\n");
+        receiptContent.append("Thank you for your purchase!\n");
+        receiptContent.append("Please visit us again.\n");
+
         receiptArea.setText(receiptContent.toString());
 
-        add(scrollPane);
+        // Write the receipt to receipt.txt
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("receipt.txt"))) {
+            writer.write(receiptContent.toString());
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+        add(scrollPane, gbc);
         setVisible(true);
     }
 

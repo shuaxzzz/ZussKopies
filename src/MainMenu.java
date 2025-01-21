@@ -140,28 +140,10 @@ public class MainMenu extends JFrame implements ActionListener
             Coffee coffeeWindow = new Coffee();
             coffeeWindow.setVisible(true);
         } else if (e.getSource() == printReceipt) {
-            // Display Receipt with Total Price
-            try (BufferedReader br = new BufferedReader(new FileReader("orders.txt"))) {
-                StringBuilder receiptContent = new StringBuilder();
-                String line;
-                double totalPrice = 0.0;
-
-                while ((line = br.readLine()) != null) {
-                    receiptContent.append(line).append("\n");
-                    if (line.contains("Price:")) {
-                        String priceString = line.split("Price:")[1].trim();
-                        totalPrice += Double.parseDouble(priceString);
-                    }
-                }
-
-                receiptContent.append("\nTotal Price: RM").append(String.format("%.2f", totalPrice));
-                JOptionPane.showMessageDialog(this, receiptContent.toString(), "Receipt", JOptionPane.INFORMATION_MESSAGE);
-            } catch (IOException ioException) {
-                JOptionPane.showMessageDialog(this, "Error reading the receipt file.", "Error", JOptionPane.ERROR_MESSAGE);
-            } catch (NumberFormatException numberFormatException) {
-                JOptionPane.showMessageDialog(this, "Error parsing price from receipt file.", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        } else if (e.getSource() == close) {
+            ReceiptPage receiptPage = new ReceiptPage();
+            receiptPage.setVisible(true);
+        }
+        else if (e.getSource() == close) {
             // Confirmation dialog to ensure data is saved
             JOptionPane.showMessageDialog(null, "THANK YOU FOR USING ZUSS KOPIESS!<3");
             ((JFrame) SwingUtilities.getWindowAncestor((JComponent) e.getSource())).dispose();
