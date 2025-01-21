@@ -21,7 +21,7 @@ public class Coffee extends JFrame implements ActionListener {   //fungsi Action
     public Coffee() {
         // Load the background image
         try {
-            backgroundImage = ImageIO.read(new File("src/resouces/cat3.jpeg")); // Adjust the path
+            backgroundImage = ImageIO.read(new File("src/resources/cat3.jpeg")); // Adjust the path
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -62,7 +62,7 @@ public class Coffee extends JFrame implements ActionListener {   //fungsi Action
         //untuk background
         try {
             // Correct path to the image
-            File imageFile = new File("src/resouces/cat3.jpeg"); // Adjust path here
+            File imageFile = new File("src/resources/cat3.jpeg"); // Adjust path here
             if (imageFile.exists()) {
                 backgroundImage = ImageIO.read(imageFile);
             } else {

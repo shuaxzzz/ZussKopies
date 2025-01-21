@@ -25,7 +25,7 @@ public class WelcomePage extends JFrame implements ActionListener {
         cp = super.getContentPane();
 
         // Initialize audio playback
-        playAudio("src/resouces/espressoSong.wav");
+        playAudio("src/resources/espressoSong.wav");
 
         customers = new ArrayList<>();
         customers.add(new Customers("user1", "password1"));

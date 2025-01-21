@@ -38,7 +38,7 @@ public class Food extends JFrame {
         foodPanel.setBackground(Color.GRAY);
         String[] foodNames = {"Ayam Masak Merah With Rice", "Chicken Lasagna", "Korean Mac & Cheese", "Mee Hoon Goreng Siam", "Biscoff Baked Cheese Cake", "Burnt Cheese Cake","Kampung Fried Rice","Pak Naseer's Nasi Lemak Ayam Rendang"}; //food name
         double[] foodPrices = {12.90, 13.90, 12.90, 7.90, 13.50, 13.50,11.90,12,90}; //food price
-        String[] foodImages = {"src/resouces/Ayam Masak Merah With Rice.jpg", "src/resouces/Chicken Lasagna.jpg", "src/resouces/Korean Mac & Cheese.jpg", "src/resouces/Mee Hoon Goreng Siam.jpg", "src/resouces/Biscoff Baked Cheese Cake.jpg", "src/resouces/Burnt Cheese Cake.jpg","src/resouces/Kampung Fried Rice.jpg","src/resouces/Pak Naseer's Nasi Lemak Ayam Rendang.jpg"};
+        String[] foodImages = {"src/resources/Ayam Masak Merah With Rice.jpg", "src/resources/Chicken Lasagna.jpg", "src/resources/Korean Mac & Cheese.jpg", "src/resources/Mee Hoon Goreng Siam.jpg", "src/resources/Biscoff Baked Cheese Cake.jpg", "src/resources/Burnt Cheese Cake.jpg","src/resources/Kampung Fried Rice.jpg","src/resources/Pak Naseer's Nasi Lemak Ayam Rendang.jpg"};
 
         for (int i = 0; i < foodNames.length; i++) {
             JPanel itemPanel = new JPanel();

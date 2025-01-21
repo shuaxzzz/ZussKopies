@@ -26,7 +26,7 @@ public class OrderCoffee extends JFrame implements ActionListener {
 
     public OrderCoffee(CoffeeType kopi) {
         try {
-            backgroundImage = ImageIO.read(new File("src/resouces/cat5.jpeg")); // Adjust the path
+            backgroundImage = ImageIO.read(new File("src/resources/cat5.jpeg")); // Adjust the path
         } catch (IOException e) {
             e.printStackTrace();
         }
