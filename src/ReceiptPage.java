@@ -5,7 +5,7 @@ import java.io.*;
 public class ReceiptPage extends JFrame {
     public ReceiptPage() {
         setTitle("Receipt");
-        setSize(700, 600);
+        setSize(700, 625);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
@@ -18,18 +18,18 @@ public class ReceiptPage extends JFrame {
         receiptArea.setFont(new Font("Monospaced", Font.PLAIN, 14)); // Use monospaced font for alignment
         receiptArea.setMargin(new Insets(10, 10, 10, 10)); // Add padding for better visuals
         JScrollPane scrollPane = new JScrollPane(receiptArea);
-        scrollPane.setPreferredSize(new Dimension(600, 500));
+        scrollPane.setPreferredSize(new Dimension(600, 525));
 
         double totalPrice = 0.0;
         StringBuilder receiptContent = new StringBuilder();
 
         // Add a formal header to the receipt
-        receiptContent.append("==========================================================================\n");
-        receiptContent.append("                               ZUSS KOPIESS          \n");
-        receiptContent.append("==========================================================================\n");
+        receiptContent.append("==================================================================================\n");
+        receiptContent.append("                                    ZUSS KOPIESS          \n");
+        receiptContent.append("==================================================================================\n");
         receiptContent.append("Date: ").append(java.time.LocalDate.now()).append("\n");
         receiptContent.append("Time: ").append(java.time.LocalTime.now().withNano(0)).append("\n");
-        receiptContent.append("==========================================================================\n\n");
+        receiptContent.append("==================================================================================\n\n");
 
         receiptContent.append("Items Purchased:\n");
 
@@ -42,7 +42,7 @@ public class ReceiptPage extends JFrame {
                     String pricePart = line.substring(priceIndex).trim();
 
                     // Format item and price for proper alignment
-                    receiptContent.append(String.format("%-60s %10s\n", itemName, pricePart));
+                    receiptContent.append(String.format("%-70s %10s\n", itemName, pricePart));
 
                     double price = Double.parseDouble(pricePart.substring(2).trim()); // Extract numeric part
                     totalPrice += price;
@@ -55,9 +55,9 @@ public class ReceiptPage extends JFrame {
         }
 
         // Add a line to separate items from the total
-        receiptContent.append("\n=========================================================================\n");
-        receiptContent.append(String.format("%-60s %10s\n", "Total Amount Due:", String.format("RM %.2f", totalPrice)));
-        receiptContent.append("=========================================================================\n\n");
+        receiptContent.append("\n=================================================================================\n");
+        receiptContent.append(String.format("%-70s %10s\n", "Total Amount Due:", String.format("RM %.2f", totalPrice)));
+        receiptContent.append("=================================================================================\n\n");
         receiptContent.append("Thank you for your purchase!\n");
         receiptContent.append("Please visit us again.\n");
 
