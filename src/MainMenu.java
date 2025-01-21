@@ -30,7 +30,7 @@ public class MainMenu extends JFrame implements ActionListener
         setContentPane(backgroundPanel);
 
         //sediakan page
-        setSize(800,600); //size kotak
+        setSize(900,600); //size kotak
         setLocation(300,100); //jarak dari hujung screen;
         setDefaultCloseOperation(EXIT_ON_CLOSE); //supaya tekan pangkah, terus tutup
 
