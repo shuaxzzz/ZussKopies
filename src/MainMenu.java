@@ -19,7 +19,7 @@ public class MainMenu extends JFrame implements ActionListener
     public MainMenu()
     {
         try {
-            backgroundImage = ImageIO.read(new File("C:\\Users\\user\\IdeaProjects\\TheWarmMug\\src\\cat4.jpeg")); // Adjust the path
+            backgroundImage = ImageIO.read(new File("src/resouces/cat4.jpeg")); // Adjust the path
         } catch (IOException e) {
             e.printStackTrace();
         }

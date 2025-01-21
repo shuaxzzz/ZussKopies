@@ -25,7 +25,7 @@ public class WelcomePage extends JFrame implements ActionListener {
         cp = super.getContentPane();
 
         // Initialize audio playback
-        playAudio("C:\\Users\\user\\IdeaProjects\\TheWarmMug\\src\\espressoSong.wav");
+        playAudio("src/resouces/espressoSong.wav");
 
         customers = new ArrayList<>();
         customers.add(new Customers("user1", "password1"));
@@ -59,7 +59,7 @@ public class WelcomePage extends JFrame implements ActionListener {
         lblWelcome.setBorder(new EmptyBorder(10, 10, 10, 10));
         lblWelcome.setForeground(Color.black);
 
-        ImageIcon coffeeIcon = new ImageIcon(getClass().getResource("/download.png"));
+        ImageIcon coffeeIcon = new ImageIcon(getClass().getResource("download.png"));
         Image scaledImage = coffeeIcon.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
         coffeeIcon = new ImageIcon(scaledImage);
 
@@ -154,7 +154,7 @@ public class WelcomePage extends JFrame implements ActionListener {
                     JOptionPane.showMessageDialog(this, "Welcome back, " + username + ":) !");
                     userFound = true;
                     stopAudio();
-                   MainMenu mn = new MainMenu();
+                    MainMenu mn = new MainMenu();
                     mn.setVisible(true);
                     this.dispose();
                     break;
@@ -192,7 +192,7 @@ public class WelcomePage extends JFrame implements ActionListener {
 
     private void stopAudio() {
         if (clip != null && clip.isRunning()) {
-           // clip.stop();
+            // clip.stop();
         }
     }
 }
